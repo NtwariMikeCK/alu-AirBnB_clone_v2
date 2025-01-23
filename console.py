@@ -119,7 +119,7 @@ class HBNBCommand(cmd.Cmd):
         if not args:
             print("** class name missing **")
             return
-
+        item_dict = {}
         args = args.split(" ", 1)  # Split by the first space
         c_name = args[0]
 
@@ -141,7 +141,7 @@ class HBNBCommand(cmd.Cmd):
                 return
 
             # Process parameters as key-value pairs
-            item_dict = {}
+            
             for i in range(0, len(params), 2):  # Iterate in steps of 2
                 key = params[i]
                 value = params[i + 1]
