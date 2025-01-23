@@ -119,7 +119,7 @@ class HBNBCommand(cmd.Cmd):
         if not args:
             print("** class name missing **")
             return
-        item_dict = {}
+
         args = args.split(" ", 1)  # Split by the first space
         c_name = args[0]
 
@@ -128,31 +128,50 @@ class HBNBCommand(cmd.Cmd):
             return
         # Create an instance of the class
         new_instance = HBNBCommand.classes[c_name]()
-        new_instance.save()
-        print(new_instance.id)
+        item_dict = {}
+        # new_instance.save()
+        
 
         # Process the parameters
+        # if len(args) > 1:
+        #     params = args[1].replace("(", "").replace(")", "").split()  # Handle parentheses and split
         if len(args) > 1:
-            params = args[1].replace("(", "").replace(")", "").split()  # Handle parentheses and split
+            param_string = args[1]
+            param_list = param_string.split()  # Split parameters by space
+            i = 0
+            while i < len(param_list):
+                param = param_list[i]
+                if "=" in param:  # Handle key=value format
+                    key, value = param.split("=", 1)
+                else:  # Handle key value format
+                    if i + 1 < len(param_list):
+                        key = param
+                        value = param_list[i + 1]
+                        i += 1  # Skip the next item as it is the value
+                    else:
+                        print(f"Ignored invalid parameter: {param}")
+                        break
 
-            # Check if the number of parameters is even (key-value pairs)
-            if len(params) % 2 != 0:
-                print("The arguments should be key-value pairs")
-                return
+                # Process value
+                if value.startswith('"') and value.endswith('"'):  # Quoted strings
+                    value = value[1:-1].replace("_", " ")
+                elif value.isdigit():  # Integer values
+                    value = int(value)
+                elif value.replace('.', '', 1).isdigit():  # Float values
+                    value = float(value)
+                else:
+                    value = value  # Keep as string
 
-            # Process parameters as key-value pairs
-            
-            for i in range(0, len(params), 2):  # Iterate in steps of 2
-                key = params[i]
-                value = params[i + 1]
+                # Add to the dictionary
                 item_dict[key] = value
-
+                i += 1
 
         update_args = f"{c_name} {new_instance.id} "  # Start with class name and instance ID
         for key, value in item_dict.items():
             update_args += f"{key} {value} "  # Add each key-value pair
 
         # Call `do_update` with the formatted string
+        print(new_instance.id)
         self.do_update(update_args.strip())
 
 
@@ -322,15 +341,13 @@ class HBNBCommand(cmd.Cmd):
                 if att_name in HBNBCommand.types:
                     att_val = HBNBCommand.types[att_name](att_val)
                 setattr(obj, att_name, att_val)  # Set the attribute
-
         obj.save()  # Save updates to storage
-
-
 
     def help_update(self):
         """ Help information for the update class """
         print("Updates an object with new information")
         print("Usage: update <className> <id> <attName> <attVal>\n")
+
 
 if __name__ == "__main__":
     HBNBCommand().cmdloop()
