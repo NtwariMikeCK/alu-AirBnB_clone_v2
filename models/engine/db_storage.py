@@ -1,4 +1,3 @@
-
 #!/usr/bin/python3
 """ new class for sqlAlchemy """
 from os import getenv
