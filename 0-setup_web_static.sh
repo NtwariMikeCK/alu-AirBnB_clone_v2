@@ -46,6 +46,3 @@ fi
 
 # Restart Nginx
 service nginx restart
-
-# Exit successfully
-echo "Setup complete!"
