@@ -1,4 +1,4 @@
-#!usr/bin/env bash
+#!/usr/bin/env bash
 # Exit on any error
 set -e
 
@@ -49,4 +49,3 @@ service nginx restart
 
 # Exit successfully
 echo "Setup complete!"
-
