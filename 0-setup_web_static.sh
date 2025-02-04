@@ -4,7 +4,6 @@ set -e
 
 # Install Nginx if not already installed
 if ! dpkg -l | grep -q nginx; then
-  echo "Installing Nginx..."
   apt-get update
   apt-get install -y nginx
 fi
