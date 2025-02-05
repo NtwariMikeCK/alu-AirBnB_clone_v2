@@ -10,6 +10,7 @@ env.hosts = ['54.221.128.224', '54.91.66.161']
 env.user = 'ubuntu'
 env.key_filename = '~/.ssh/id_rsa'
 
+
 def do_deploy(archive_path):
         """Deploy web files to server
         """
