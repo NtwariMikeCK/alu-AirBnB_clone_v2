@@ -5,12 +5,15 @@ from flask import Flask
 
 app = Flask(__name__)
 
+
 @app.route("/")
 def greet():
     return "Hello HBNB!"
+
+
 @app.route("/hbnb")
 def greet_1():
-  return "HBNB"
+    return "HBNB"
 
 
 if __name__ == "__main__":
