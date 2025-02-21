@@ -19,20 +19,17 @@ def hbnb():
 
 
 @app.route('/c/<text>', strict_slashes=False)
-def text_var(text):
+def text_route(text):
     """Comment"""
     return "C {}".format(text.replace("_", " "))
 
 
-@app.route("/python/<text>", strict_slashes=False)
-def python_tect(text):
+@app.route('/python', strict_slashes=False)
+@app.route('/python/<text>', strict_slashes=False)
+def text_route_python(text="is cool"):
     """Comment"""
-    if text:
-      text = text.replace("_", " ")
-    else:
-      text = "is cool"
-    return f"Pyhton {text}"
+    return "Python {}".format(text.replace("_", " "))
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000)
