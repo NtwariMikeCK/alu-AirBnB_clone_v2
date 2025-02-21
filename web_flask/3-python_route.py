@@ -1,28 +1,27 @@
 #!/usr/bin/python3
 
-""" display message at route url"""
+"""Script that starts a Flask web application"""
 from flask import Flask
 
 app = Flask(__name__)
 
 
-@app.route("/")
-def greet():
+@app.route('/', strict_slashes=False)
+def hello_hbnb():
     """Comment"""
     return "Hello HBNB!"
 
 
-@app.route("/hbnb", strict_slashes=False)
-def greet_1():
+@app.route('/hbnb', strict_slashes=False)
+def hbnb():
     """Comment"""
     return "HBNB"
 
 
-@app.route("/c/<text>", strict_slashes=False):
-def c_text(text):
+@app.route('/c/<text>', strict_slashes=False)
+def text_var(text):
     """Comment"""
-    text = text.replace("_", " ")
-    return f"C {text}"
+    return "C {}".format(text.replace("_", " "))
 
 
 @app.route("/python/<text>", strict_slashes=False)
